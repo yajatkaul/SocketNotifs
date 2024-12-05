@@ -34,11 +34,11 @@ class WebSocketService : android.app.Service() {
         super.onCreate()
         createNotificationChannel()
 
-        Log.d("WebSocketService", "onCreateCalled")
-        val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("WebSocket Service")
-            .setContentText("Listening for updates...")
-            .setSmallIcon(R.drawable.ic_stat_onesignal_default)
+            .setContentText("WebSocket is running...")
+            .setSmallIcon(R.drawable.ic_stat_onesignal_default)  // You can customize the icon here
+            .setPriority(NotificationCompat.PRIORITY_MIN)
             .build()
 
         startForeground(1, notification)
@@ -48,6 +48,7 @@ class WebSocketService : android.app.Service() {
         webSocketUrl = intent.getStringExtra("webSocketUrl")
         if (webSocketUrl != null) {
             Log.d("WebSocketService", "WebSocket URL: $webSocketUrl")
+            registerNetworkCallback()
             startWebSocket()  // Pass the URL to startWebSocket method
         } else {
             Log.e("WebSocketService", "WebSocket URL is null")
