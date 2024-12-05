@@ -1,29 +1,21 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:socketnotifs/socketnotifs.dart';
 
-import 'sadasd_method_channel.dart';
-
-abstract class SadasdPlatform extends PlatformInterface {
-  /// Constructs a SadasdPlatform.
-  SadasdPlatform() : super(token: _token);
+abstract class SocketNotifsPlatform extends PlatformInterface {
+  // Constructor
+  SocketNotifsPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static SadasdPlatform _instance = MethodChannelSadasd();
+  // This method must be implemented by the native code
+  Future<void> connectToWebSocket(String url);
 
-  /// The default instance of [SadasdPlatform] to use.
-  ///
-  /// Defaults to [MethodChannelSadasd].
-  static SadasdPlatform get instance => _instance;
+  // A getter to access the current platform-specific implementation
+  static SocketNotifsPlatform get instance => _instance;
+  static SocketNotifsPlatform _instance = SocketNotifsMethodChannel();
 
-  /// Platform-specific implementations should set this with their own
-  /// platform-specific class that extends [SadasdPlatform] when
-  /// they register themselves.
-  static set instance(SadasdPlatform instance) {
-    PlatformInterface.verifyToken(instance, _token);
+  // Sets the platform implementation (useful for testing or custom platforms)
+  static set instance(SocketNotifsPlatform instance) {
     _instance = instance;
-  }
-
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

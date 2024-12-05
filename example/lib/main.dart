@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:socketnotifs/socketnotifs_platform_interface.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +13,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var channel = const MethodChannel("Notif");
   @override
   void initState() {
     super.initState();
-    channel.invokeMethod("showNotif", {'url': "ws://10.0.2.2:4000"});
+    SocketNotifsPlatform.instance.connectToWebSocket("ws://10.0.2.2:4000");
   }
 
   @override

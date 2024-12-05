@@ -1,18 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
 
-import 'socketnotifs_platform_interface.dart';
+import 'package:socketnotifs/socketnotifs_platform_interface.dart';
 
-/// An implementation of [SadasdPlatform] that uses method channels.
-class MethodChannelSadasd extends SadasdPlatform {
-  /// The method channel used to interact with the native platform.
-  @visibleForTesting
-  final methodChannel = const MethodChannel('sadasd');
+class SocketNotifsMethodChannel extends SocketNotifsPlatform {
+  static const MethodChannel _channel = MethodChannel('Notif');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<void> connectToWebSocket(String url) async {
+    await _channel.invokeMethod('showNotif', {'url': url});
   }
 }
