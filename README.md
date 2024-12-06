@@ -1,5 +1,4 @@
 # SocketNotifs
-<<<<<<< HEAD
 
 SocketNotifs is a Dart plugin for Flutter applications that facilitates easy WebSocket connections and provides notifications. This plugin currently supports the Android platform, while iOS support is still under development.
 
@@ -37,37 +36,6 @@ void main() {
   runApp(const MyApp());
 }
 
-=======
-SocketNotifs is a Dart plugin for Flutter applications that facilitates easy WebSocket connections and provides notifications. This plugin currently supports the Android platform, while iOS support is still under development.
-
-## Features
-* Establishes WebSocket connections seamlessly.
-* Android-side implementation is complete with required permissions and services.
-* iOS implementation is planned and coming soon. (I dont have a mac/ios device)
-
-## Installation
-Add the dependency to your pubspec.yaml file:
-```yaml
-dependencies:
-  socketnotifs: <latest_version>
-```
-Then, run:
-```bash
-flutter pub get
-```
-
-## Usage
-Example Code
-Below is a minimal example of how to use SocketNotifs:
-```dart
-import 'package:flutter/material.dart';
-import 'package:socketnotifs/socketnotifs_platform_interface.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
->>>>>>> 35e9c1ad7611084c40fb9d577f8b444468d4e6c8
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -100,13 +68,9 @@ class _MyAppState extends State<MyApp> {
 ```
 
 ## Permissions (Android)
-<<<<<<< HEAD
 
 To use this plugin, ensure the following permissions are added to your Android `AndroidManifest.xml` file:
 
-=======
-To use this plugin, ensure the following permissions are added to your Android `AndroidManifest.xml` file:
->>>>>>> 35e9c1ad7611084c40fb9d577f8b444468d4e6c8
 ```xml
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -114,16 +78,11 @@ To use this plugin, ensure the following permissions are added to your Android `
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 ```
-<<<<<<< HEAD
 
 ## Server Side
 
 To send notifications from the websocket follow this example for js:
 
-=======
-## Server Side
-To send notifications from the websocket follow this example for js:
->>>>>>> 35e9c1ad7611084c40fb9d577f8b444468d4e6c8
 ```js
 const WebSocket = require("ws");
 const express = require("express");
@@ -168,7 +127,6 @@ setInterval(() => {
 ```
 
 ## Roadmap
-<<<<<<< HEAD
 
 - Completed:
   - Android-side implementation.
@@ -181,17 +139,6 @@ Contributions are welcome! Feel free to open an issue or submit a pull request t
 
 ## License
 
-=======
-* Completed:
-  * Android-side implementation.
-* Planned:
-  * iOS-side implementation.
-
-## Contributing
-Contributions are welcome! Feel free to open an issue or submit a pull request to help improve this plugin.
-
-## License
->>>>>>> 35e9c1ad7611084c40fb9d577f8b444468d4e6c8
 This project is licensed under the `MIT License`.
 
 Happy coding with SocketNotifs! 🎉
