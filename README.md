@@ -68,6 +68,50 @@ To use this plugin, ensure the following permissions are added to your Android `
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 ```
+## Server Side
+To send notifications from the websocket follow this example for js:
+```js
+const WebSocket = require("ws");
+const express = require("express");
+const app = express();
+const port = 4000;
+
+// Initialize WebSocket server
+const wss = new WebSocket.Server({ noServer: true });
+
+// WebSocket connection handling
+wss.on("connection", (ws) => {
+  console.log("Client connected");
+
+  ws.on("close", () => {
+    console.log("Client disconnected");
+  });
+});
+
+// Upgrade HTTP server to WebSocket
+app.server = app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
+
+app.server.on("upgrade", (request, socket, head) => {
+  wss.handleUpgrade(request, socket, head, (ws) => {
+    wss.emit("connection", ws, request);
+  });
+});
+
+function broadcastMessage(message, title) {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({ message, title }));
+    }
+  });
+}
+
+setInterval(() => {
+  broadcastMessage("This is a test notification message!", "example");
+  console.log("asdas");
+}, 5000);
+```
 
 ## Roadmap
 * Completed:
