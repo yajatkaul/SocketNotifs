@@ -1,11 +1,11 @@
 name: socketnotifs
-description: "A new Flutter project."
-version: 0.0.1
-homepage:
+description: "SocketNotifs is a Dart plugin for Flutter applications that facilitates easy WebSocket connections and provides notifications. This plugin currently supports the Android platform, while iOS support is still under development."
+version: 0.1.1
+homepage: https://github.com/yajatkaul/SocketNotifs
 
 environment:
   sdk: ^3.5.4
-  flutter: '>=3.3.0'
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
