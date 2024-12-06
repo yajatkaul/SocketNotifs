@@ -1,13 +1,15 @@
 # SocketNotifs
+
 [![Pub Popularity](https://img.shields.io/pub/popularity/socketnotifs)](https://pub.dev/packages/socketnotifs)
 [![Pub Version](https://img.shields.io/pub/v/socketnotifs)](https://pub.dev/packages/socketnotifs)
 [![License](https://img.shields.io/github/license/yajatkaul/SocketNotifs)](https://pub.dev/packages/socketnotifs)
 
-
 SocketNotifs is a Dart plugin for Flutter applications that facilitates easy WebSocket connections and provides notifications. This plugin currently supports the Android platform, while iOS support is still under development.
 
 ## Features
+
 [![Pub Points](https://img.shields.io/pub/points/socketnotifs)](https://pub.dev/packages/socketnotifs)
+
 - Establishes WebSocket connections seamlessly.
 - Android-side implementation is complete with required permissions and services.
 - iOS implementation is planned and coming soon. (I dont have a mac/ios device)
@@ -34,7 +36,7 @@ Below is a minimal example of how to use SocketNotifs:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:socketnotifs/socketnotifs_platform_interface.dart';
+import 'package:socketnotifs/socketnotifs.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,8 +53,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // Connect to WebSocket
-    SocketNotifsPlatform.instance.connectToWebSocket("ws://10.0.2.2:4000");
+    SocketNotifs.connectToWebSocket("ws://10.0.2.2:4000");
   }
 
   @override
@@ -60,10 +61,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('SocketNotifs Example'),
+          title: const Text('Plugin example app'),
         ),
         body: const Center(
-          child: Text('WebSocket is running...'),
+          child: Text('Running on: drugs\n'),
         ),
       ),
     );
