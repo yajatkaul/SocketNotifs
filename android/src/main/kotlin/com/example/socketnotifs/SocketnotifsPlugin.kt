@@ -21,12 +21,12 @@ class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
     context = flutterPluginBinding.applicationContext
 
     // Initialize the MethodChannel
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "Notif")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "Notification")
     channel.setMethodCallHandler(this)
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "showNotif") {
+    if (call.method == "ConnectToSocket") {
       val url = call.argument<String>("url")
 
       if (url != null) {
