@@ -36,9 +36,9 @@ flutter:
     platforms:
       android:
         package: com.example.socketnotifs
-        pluginClass: SocketnotifsPlugin
+        pluginClass: SocketNotifs
       ios:
-        pluginClass: SocketnotifsPlugin
+        pluginClass: SocketNotifs
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
