@@ -1,28 +1,32 @@
 package com.example.socketnotifs
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
+class SocketnotifsPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
   private lateinit var channel: MethodChannel
-  private lateinit var context: Context  // Declare context variable
+  private lateinit var context: Context
+  private var activity: Activity? = null
+
+  companion object {
+    private const val REQUEST_NOTIFICATION_PERMISSION = 1
+  }
 
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    // Initialize the context here from FlutterPluginBinding
     context = flutterPluginBinding.applicationContext
-
-    // Initialize the MethodChannel
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "Notification")
     channel.setMethodCallHandler(this)
   }
@@ -32,7 +36,6 @@ class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
       val url = call.argument<String>("url")
 
       if (url != null) {
-        // Check if notification permission is granted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13 and above
           if (ContextCompat.checkSelfPermission(
               context,
@@ -41,19 +44,25 @@ class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
           ) {
             startNotificationService(url, result)
           } else {
-            Log.e("WebSocketService", "Notification permission not granted")
-            result.error(
-              "PERMISSION_DENIED",
-              "Notification permission not granted",
-              null
-            )
+            // Request permission
+            activity?.let {
+              ActivityCompat.requestPermissions(
+                it,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                REQUEST_NOTIFICATION_PERMISSION
+              )
+            } ?: run {
+              result.error(
+                "ACTIVITY_NOT_ATTACHED",
+                "Activity is null, cannot request permissions",
+                null
+              )
+            }
           }
         } else {
-          // For Android versions below 13, start the service directly
           startNotificationService(url, result)
         }
       } else {
-        Log.e("WebSocketService", "URL is null")
         result.error("INVALID_ARGUMENT", "WebSocket URL is null", null)
       }
     } else {
@@ -63,7 +72,7 @@ class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
 
   private fun startNotificationService(url: String, result: Result) {
     val intent = Intent(context, WebSocketService::class.java).apply {
-      putExtra("webSocketUrl", url) // Pass the URL to the WebSocketService
+      putExtra("webSocketUrl", url)
     }
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -77,5 +86,21 @@ class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
+  }
+
+  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    activity = binding.activity
+  }
+
+  override fun onDetachedFromActivity() {
+    activity = null
+  }
+
+  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    activity = binding.activity
+  }
+
+  override fun onDetachedFromActivityForConfigChanges() {
+    activity = null
   }
 }
