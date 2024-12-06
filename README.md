@@ -4,7 +4,7 @@ SocketNotifs is a Dart plugin for Flutter applications that facilitates easy Web
 ## Features
 * Establishes WebSocket connections seamlessly.
 * Android-side implementation is complete with required permissions and services.
-* iOS implementation is planned and coming soon.
+* iOS implementation is planned and coming soon. (I dont have a mac/ios device)
 
 ## Installation
 Add the dependency to your pubspec.yaml file:
