@@ -1,3 +1,3 @@
-## 0.1.2
+## 0.1.3
 
-- Got the plugin working globally(dont ask what i mean by that)
+- Changes in calling implimentations

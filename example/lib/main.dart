@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socketnotifs/socketnotifs_platform_interface.dart';
+import 'package:socketnotifs/socketnotifs.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    SocketNotifsPlatform.instance.connectToWebSocket("ws://10.0.2.2:4000");
+    SocketNotifs.connectToWebSocket("ws://10.0.2.2:4000");
   }
 
   @override
