@@ -1,6 +1,10 @@
 package com.example.socketnotifs
 
-import androidx.annotation.NonNull
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.util.Log
+import androidx.core.content.ContextCompat
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -8,22 +12,39 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-/** SocketnotifsPlugin */
 class SocketnotifsPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
+  private lateinit var channel: MethodChannel
+  private lateinit var context: Context  // Declare context variable
 
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "socketnotifs")
+    // Initialize the context here from FlutterPluginBinding
+    context = flutterPluginBinding.applicationContext
+
+    // Initialize the MethodChannel
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "Notif")
     channel.setMethodCallHandler(this)
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
+    if (call.method == "showNotif") {
+      val url = call.argument<String>("url")
+
+      if (url != null) {
+        val intent = Intent(context, WebSocketService::class.java).apply {
+          putExtra("webSocketUrl", url) // Pass the URL to the WebSocketService
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          ContextCompat.startForegroundService(context, intent)
+        } else {
+          context.startService(intent)
+        }
+
+        result.success("Notification service started successfully")
+      } else {
+        Log.e("WebSocketService", "URL is null")
+        result.error("INVALID_ARGUMENT", "WebSocket URL is null", null)
+      }
     } else {
       result.notImplemented()
     }

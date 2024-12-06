@@ -39,11 +39,6 @@ android {
     }
 }
 
-dependencies {
-    // Add OkHttp dependency for WebSocket support
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
-}
-
 flutter {
     source = "../.."
 }

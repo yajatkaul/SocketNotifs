@@ -1,6 +1,5 @@
-package com.example.socketnotifs_example
+package com.example.socketnotifs
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -37,7 +36,7 @@ class WebSocketService : android.app.Service() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("WebSocket Service")
             .setContentText("WebSocket is running...")
-            .setSmallIcon(R.drawable.ic_stat_onesignal_default)  // You can customize the icon here
+            .setSmallIcon(applicationContext.applicationInfo.icon)  // You can customize the icon here
             .setPriority(NotificationCompat.PRIORITY_MIN)
             .build()
 
@@ -150,7 +149,7 @@ class WebSocketService : android.app.Service() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(message)
-            .setSmallIcon(R.drawable.ic_stat_onesignal_default)
+            .setSmallIcon(applicationContext.applicationInfo.icon)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 

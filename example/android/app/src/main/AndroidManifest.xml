@@ -10,7 +10,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <service
-            android:name=".WebSocketService"
+            android:name="com.example.socketnotifs.WebSocketService"
             android:exported="true"
             android:foregroundServiceType="dataSync" />
         <activity
