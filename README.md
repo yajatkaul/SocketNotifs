@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    //Connect to your websocket url
     SocketNotifs.connectToWebSocket("ws://10.0.2.2:4000");
   }
 
