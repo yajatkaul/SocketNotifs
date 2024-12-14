@@ -1,3 +1,3 @@
-## 0.1.8
+## 1.0.0
 
-- Added auto permission request
+- Basic package complete

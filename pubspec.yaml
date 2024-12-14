@@ -22,5 +22,3 @@ flutter:
       android:
         package: com.example.socketnotifs
         pluginClass: SocketnotifsPlugin
-      ios:
-        pluginClass: SocketnotifsPlugin

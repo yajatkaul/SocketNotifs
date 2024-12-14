@@ -4,7 +4,7 @@
 [![Pub Version](https://img.shields.io/pub/v/socketnotifs)](https://pub.dev/packages/socketnotifs)
 [![License](https://img.shields.io/github/license/yajatkaul/SocketNotifs)](https://pub.dev/packages/socketnotifs)
 
-SocketNotifs is a Dart plugin for Flutter applications that facilitates easy WebSocket connections and provides notifications. This plugin currently supports the Android platform, while iOS support is still under development.
+SocketNotifs is a Dart plugin for Flutter applications that facilitates easy WebSocket connections and provides notifications. This plugin currently supports the Android platform, while iOS support is another story cuz of apples APN system so ig firebase wins here but this is open source who knows.
 
 ## Features
 
@@ -12,7 +12,6 @@ SocketNotifs is a Dart plugin for Flutter applications that facilitates easy Web
 
 - Establishes WebSocket connections seamlessly.
 - Android-side implementation is complete with required permissions and services.
-- iOS implementation is planned and coming soon. (I dont have a mac/ios device)
 
 ## Installation
 
@@ -142,8 +141,6 @@ setInterval(() => {
 
 - Completed:
   - Android-side implementation.
-- Planned:
-  - iOS-side implementation.
 
 ## Contributing
 
